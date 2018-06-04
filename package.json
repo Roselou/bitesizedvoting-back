@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Roselou/bitesizedvoting-back/issues"
   },
-  "homepage": "https://github.com/Roselou/bitesizedvoting-back#readme"
+  "homepage": "https://github.com/Roselou/bitesizedvoting-back#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "install": "^0.11.0",
+    "nodemailer": "^4.6.5",
+    "npm": "^6.1.0",
+    "xoauth2": "^1.2.0"
+  }
 }
