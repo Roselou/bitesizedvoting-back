@@ -22,22 +22,8 @@ app.get('/', function (req, res) {
     res.send('Yup, working...');
 })
 
-
-
-
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-            user: 'bitesizedvoter@gmail.com',
-            pass: 'Hackathon2018',
-    }
-});
-
-let mailOptions = {
-    from: 'bitesizedvoter@gmail.com',
-    to: 'daltonvaren@gmail.com',
-    subject: 'You Choose A Canidate!',
-    html: `
+app.post('/send', (req,res) => {
+    const output = `
     <html>
     <head>
       <style>
@@ -50,7 +36,7 @@ let mailOptions = {
       <div id='body'>
         <h2>Hi Voter!</h2>
         <p>You learned about the SF Mayor candidates and you supported:</p>
-        <a href='#'><h2>Name of Canidate</h2></a>
+        <a href='#'><h2>${req.body.name}</h2></a>
         <img src="http://www.clker.com/cliparts/i/2/n/G/S/J/blue-thumbs-up-icon.svg.med.png" height="45" width="45">
         <a href='https://registertovote.ca.gov/'><h2>Registor to Vote</h2></a>
         <p style="color:red">Vote June 6th</p>
@@ -60,15 +46,33 @@ let mailOptions = {
     </body>
   </html>
     `
-}
-
-transporter.sendMail(mailOptions, function(err, res){
-    if(err){
-        console.log('Error');
-    } else {
-        console.log('Email Sent');
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+                user: 'bitesizedvoter@gmail.com',
+                pass: 'Hackathon2018',
+        }
+    });
+    
+    var mailOptions = {
+        from: 'bitesizedvoter@gmail.com',
+        to: req.body.email,
+        subject: 'You Choose A Canidate!',
+        html: output
     }
+    
+    transporter.sendMail(mailOptions, function(err, res){
+        if(err){
+            console.log('Error');
+        } else {
+            console.log('Email Sent');
+        }
+    });
+
 });
+
+
+
 
 
 
